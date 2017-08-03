@@ -5,6 +5,7 @@
     * [静态使用fragment](#静态使用fragment)
     * [动态使用fragment](#动态使用fragment)
     * [fragment相关类](#fragment相关类)
+    * [传递参数](#传递参数)
 * [相关地址](#相关地址)
 
 
@@ -215,6 +216,10 @@ transaction.show() 显示之前隐藏的Fragment
 transaction.detach() 会将view从UI中移除,和remove()不同,此时fragment的状态依然由FragmentManager维护。  
 transaction.attach() 重建view视图，附加到UI上并显示。
 
+
+### 传递参数
+通过setArguments方法传递bundle
+通过getArguments来接收bundle
 
 
 ## 相关地址
