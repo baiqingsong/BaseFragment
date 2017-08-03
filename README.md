@@ -218,7 +218,7 @@ transaction.attach() 重建view视图，附加到UI上并显示。
 
 
 ### 传递参数
-通过setArguments方法传递bundle
+通过setArguments方法传递bundle  
 通过getArguments来接收bundle
 
 
