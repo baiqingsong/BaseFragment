@@ -5,7 +5,7 @@
     * [静态使用fragment](#静态使用fragment)
     * [动态使用fragment](#动态使用fragment)
     * [fragment相关类](#fragment相关类)
-    * [传递参数](#传递参数)
+    * [传递参数](#传递参数)
 * [相关地址](#相关地址)
 
 
