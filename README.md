@@ -7,6 +7,7 @@
     * [fragment相关类](#fragment相关类)
     * [传递参数](#传递参数)
     * [BaseFragment](#basefragment)
+    * [fragment中每页进入不重复加载](#fragment中每页进入不重复加载)
 * [相关地址](#相关地址)
 
 
@@ -222,7 +223,7 @@ transaction.attach() 重建view视图，附加到UI上并显示。
 通过setArguments方法传递bundle  
 通过getArguments来接收bundle
 
-## BaseFragment
+### BaseFragment
 ```
 public class BaseFragment extends Fragment {
     protected Activity activity;
@@ -289,6 +290,27 @@ public class BaseFragment extends Fragment {
                 Toast.makeText(getContext(), StringUtil.isEmpty(msg) ? "" : msg, Toast.LENGTH_LONG).show();
             }
         });
+    }
+}
+```
+
+### fragment中每页进入不重复加载
+```
+public class PersonalFragment extends BaseFragment {
+    private View rootView;
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if(rootView == null){
+            rootView = inflater.inflate(R.layout.fragment_personal, container, false);
+        }
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((ViewGroup)rootView.getParent()).removeView(rootView);
     }
 }
 ```
