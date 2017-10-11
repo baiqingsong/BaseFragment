@@ -6,6 +6,7 @@
     * [动态使用fragment](#动态使用fragment)
     * [fragment相关类](#fragment相关类)
     * [传递参数](#传递参数)
+    * [BaseFragment](#basefragment)
 * [相关地址](#相关地址)
 
 
@@ -220,6 +221,77 @@ transaction.attach() 重建view视图，附加到UI上并显示。
 ### 传递参数
 通过setArguments方法传递bundle  
 通过getArguments来接收bundle
+
+## BaseFragment
+```
+public class BaseFragment extends Fragment {
+    protected Activity activity;
+
+    public Context getContext() {
+        if (activity == null) {
+            return BaseApplication.getInstance();
+        }
+        return activity;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        activity = getActivity();
+    }
+
+    protected void jumpToActivity(Class<?> mClass){
+        startActivity(new Intent(getContext(), mClass));
+    }
+    protected void jumpToActivity(Class<?> mClass, int requestCode){
+        startActivityForResult(new Intent(getContext(), mClass), requestCode);
+    }
+    protected void jumpToActivity(Class<?> mClass, Bundle bundle){
+        startActivity(new Intent(getContext(), mClass).putExtras(bundle));
+    }
+    protected void jumpToActivity(Class<?> mClass, Bundle bundle, int requestCode){
+        startActivityForResult(new Intent(getContext(), mClass).putExtras(bundle), requestCode);
+    }
+    protected void jumpToActivity(String className) throws ClassNotFoundException {
+        Class<?> mClass = Class.forName(className);
+        jumpToActivity(mClass);
+    }
+    protected void jumpToActivity(String className, int requestCode) throws ClassNotFoundException {
+        Class<?> mClass = Class.forName(className);
+        jumpToActivity(mClass, requestCode);
+    }
+    protected void jumpToActivity(String className, Bundle bundle) throws ClassNotFoundException {
+        Class<?> mClass = Class.forName(className);
+        jumpToActivity(mClass, bundle);
+    }
+    protected void jumpToActivity(String className, Bundle bundle, int requestCode) throws ClassNotFoundException {
+        Class<?> mClass = Class.forName(className);
+        jumpToActivity(mClass, bundle, requestCode);
+    }
+    protected void toast(String msg){
+        Toast.makeText(getContext(), StringUtil.isEmpty(msg) ? "" : msg, Toast.LENGTH_SHORT).show();
+    }
+    protected void toastLong(String msg){
+        Toast.makeText(getContext(), StringUtil.isEmpty(msg) ? "" : msg, Toast.LENGTH_LONG).show();
+    }
+    public void toastUI(final String msg){
+        ((Activity)getContext()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext(), StringUtil.isEmpty(msg) ? "" : msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    protected void toastUILong(final String msg){
+        ((Activity)getContext()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext(), StringUtil.isEmpty(msg) ? "" : msg, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+}
+```
 
 
 ## 相关地址
